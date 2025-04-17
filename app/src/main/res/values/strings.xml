@@ -4,4 +4,8 @@
     <string name="of">of</string>
     <string name="motivation_message">Let\'s do it</string>
     <string name="add_water"> + Add water</string>
+    <string name="write_water_volume">Enter water volume (ml)</string>
+    <string name="add">Add</string>
+    <string name="select_water_volume">Select water volume</string>
+    <string name="add_volume">+ Add volume</string>
 </resources>

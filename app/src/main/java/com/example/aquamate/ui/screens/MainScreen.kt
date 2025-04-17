@@ -32,13 +32,12 @@ fun MainScreen(modifier: Modifier, navController: NavHostController){
     val total = 2000f
     Box(
         modifier = modifier
-            .fillMaxSize()
-            .padding(vertical = 20.dp),
+            .fillMaxSize(),
         contentAlignment = Alignment.TopCenter
     ){
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly,
+            verticalArrangement = Arrangement.SpaceAround,
             modifier = Modifier.fillMaxSize()
         ){
             Text(

@@ -5,4 +5,8 @@
     <string name="of">из</string>
     <string name="motivation_message">Долбоеб поднажми</string>
     <string name="add_water"> + Поддай газу</string>
+    <string name="write_water_volume">Введите объём воды (мл)</string>
+    <string name="add">Добавить</string>
+    <string name="select_water_volume">Выберите объём воды</string>
+    <string name="add_volume">+ Добавить объём</string>
 </resources>

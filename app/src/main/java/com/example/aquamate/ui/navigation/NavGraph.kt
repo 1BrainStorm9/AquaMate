@@ -1,11 +1,11 @@
 package com.example.aquamate.ui.navigation
 
+import AddWaterScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.aquamate.ui.screens.AddWaterScreen
 import com.example.aquamate.ui.screens.MainScreen
 
 object Navigator {
