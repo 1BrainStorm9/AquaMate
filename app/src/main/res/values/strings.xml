@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AquaMate</string>
+    <string name="ml">ml</string>
+    <string name="of">of</string>
+    <string name="motivation_message">Let\'s do it</string>
+    <string name="add_water"> + Add water</string>
+</resources>

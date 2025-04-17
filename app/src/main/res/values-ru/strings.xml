@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Водяной Дневник</string>
+    <string name="ml">мл</string>
+    <string name="of">из</string>
+    <string name="motivation_message">Долбоеб поднажми</string>
+    <string name="add_water"> + Поддай газу</string>
+</resources>
