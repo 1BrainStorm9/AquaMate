@@ -15,10 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.aquamate.ui.model.MainViewModel
+import com.example.aquamate.ui.model.AddWaterViewModel
 import com.example.aquamate.ui.screens.MainScreen
 import org.koin.androidx.compose.koinViewModel
 import androidx.compose.runtime.getValue
+import com.example.aquamate.ui.model.MainViewModel
 import com.example.aquamate.ui.theme.Background
 
 object Navigator {
