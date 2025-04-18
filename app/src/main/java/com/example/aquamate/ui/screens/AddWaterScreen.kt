@@ -1,5 +1,7 @@
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -11,13 +13,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.aquamate.R
+import com.example.aquamate.ui.model.MainViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddWaterScreen(navController: NavHostController) {
+fun AddWaterScreen(navController: NavHostController, viewModel: MainViewModel = viewModel()) {
     var waterAmounts by remember { mutableStateOf(listOf(250, 500, 750)) }
     var newAmountInput by remember { mutableStateOf("") }
 
@@ -88,17 +92,19 @@ fun AddWaterScreen(navController: NavHostController) {
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            items(waterAmounts.size) { index ->
-                val amount = waterAmounts[index]
+            itemsIndexed(waterAmounts) { index, amount ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 4.dp),
                     colors = CardDefaults.cardColors(containerColor = Color(0xFFE3F2FD)),
-                    onClick = {}
+                    onClick = {
+                        Log.d("!!!", "Btn Press")
+                        viewModel.addWater(amount)
+                    }
                 ) {
                     Text(
-                        text = "$amount мл",
+                        text = "$amount ${stringResource(R.string.ml)}",
                         modifier = Modifier.padding(16.dp),
                         fontSize = 20.sp
                     )
