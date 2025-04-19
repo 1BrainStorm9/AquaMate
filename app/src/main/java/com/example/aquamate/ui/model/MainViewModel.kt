@@ -1,26 +1,56 @@
 package com.example.aquamate.ui.model
 
-import android.util.Log
+import WaterTracker
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.aquamate.data.repository.WaterTrackerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import java.time.LocalDate
 
-data class WaterTrackerState(
-    val currentValue: Float = 0f,
-    val totalValue: Float = 2000f
-)
+class MainViewModel(
+    private val repository: WaterTrackerRepository
+) : ViewModel() {
 
-class MainViewModel : ViewModel() {
-    private val internalState  = MutableStateFlow(WaterTrackerState())
+    private var currentDate: LocalDate = LocalDate.now()
+    private val _uiState = MutableStateFlow<WaterTracker>(WaterTracker())
+    val uiState: StateFlow<WaterTracker> = _uiState
 
-    private val state: WaterTrackerState
-        get() = internalState.value
-
-    val uiState = internalState.asStateFlow()
+    init {
+        loadTrackerForCurrentDate()
+    }
 
     fun addProgress(amount: Float) {
-        val newAmount = state.currentValue + amount
-        internalState.value = state.copy(currentValue = newAmount)
-        Log.d("!!!",internalState.value.toString())
+        viewModelScope.launch {
+            repository.addProgressByDate(currentDate.toString(), amount)
+            loadTrackerForCurrentDate()
+        }
     }
+
+    fun setDate(date: LocalDate) {
+        currentDate = date
+        loadTrackerForCurrentDate()
+    }
+
+    fun moveToPreviousDay() {
+        currentDate = currentDate.minusDays(1)
+        loadTrackerForCurrentDate()
+    }
+
+    fun moveToNextDay() {
+        currentDate = currentDate.plusDays(1)
+        loadTrackerForCurrentDate()
+    }
+
+    private fun loadTrackerForCurrentDate() {
+        viewModelScope.launch {
+            repository.getTrackerByDate(currentDate.toString())
+                .collect { tracker ->
+                    _uiState.value = tracker ?: WaterTracker(date = currentDate.toString())
+                }
+        }
+    }
+
+    fun getCurrentDate(): LocalDate = currentDate
 }

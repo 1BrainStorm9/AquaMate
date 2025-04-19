@@ -1,37 +1,21 @@
 package com.example.aquamate.ui.model
 
-import androidx.lifecycle.SavedStateHandle
+import WaterVolume
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.aquamate.data.repository.WaterVolumeRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-data class WaterVolumeState(
-    val value: Float = 0f
-)
 
-class AddWaterViewModel(
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+class AddWaterViewModel(private val repository: WaterVolumeRepository) : ViewModel() {
+    val uiState: StateFlow<List<WaterVolume>> = repository.allVolumes
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    companion object {
-        private const val KEY_WATER_VOLUMES = "water_volumes"
-    }
-
-    private val _uiState = MutableStateFlow(
-        savedStateHandle.get<List<WaterVolumeState>>(KEY_WATER_VOLUMES) ?: emptyList()
-    )
-    val uiState: StateFlow<List<WaterVolumeState>> = _uiState.asStateFlow()
-
-    init {
+    fun addVolume(value: Float) {
         viewModelScope.launch {
-            _uiState.collect { updatedList ->
-                savedStateHandle[KEY_WATER_VOLUMES] = updatedList
-            }
+            repository.addVolume(WaterVolume(value = value))
         }
     }
-
-    fun addToList(item: WaterVolumeState) {
-        _uiState.update { currentList -> currentList + item }
-    }
 }
+

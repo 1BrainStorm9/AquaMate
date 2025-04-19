@@ -1,5 +1,6 @@
 package com.example.aquamate.ui.components
 
+import WaterVolume
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -10,12 +11,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aquamate.R
-import com.example.aquamate.ui.model.WaterVolumeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddWaterVolumeItem(
-    onAdd: (WaterVolumeState) -> Unit,
+    onAdd: (WaterVolume) -> Unit,
     onDismiss: () -> Unit,
     onHideSheet: () -> Unit,
     sheetState: SheetState
@@ -47,7 +47,7 @@ fun AddWaterVolumeItem(
                 onClick = {
                     val amount = newAmountInput.toIntOrNull()
                     if (amount != null) {
-                        onAdd(WaterVolumeState(amount.toFloat()))
+                        onAdd(WaterVolume(value = amount.toFloat()))
                         newAmountInput = ""
 
                         onHideSheet()

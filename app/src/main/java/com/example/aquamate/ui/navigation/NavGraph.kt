@@ -10,15 +10,12 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.aquamate.ui.model.AddWaterViewModel
 import com.example.aquamate.ui.screens.MainScreen
 import org.koin.androidx.compose.koinViewModel
-import androidx.compose.runtime.getValue
 import com.example.aquamate.ui.model.MainViewModel
 import com.example.aquamate.ui.theme.Background
 
@@ -33,7 +30,6 @@ fun NavGraph(
     vm: MainViewModel = koinViewModel()
 ) {
 
-    val state by vm.uiState.collectAsState()
     val modifier = Modifier
         .fillMaxSize()
         .background(Background)
@@ -56,7 +52,7 @@ fun NavGraph(
                 MainScreen(
                     navController = navController,
                     modifier = modifier,
-                    state = state
+                    viewModel = vm
                 )
             }
             composable(Navigator.ADD_WATER) {

@@ -1,4 +1,3 @@
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,13 +10,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.SavedStateHandle
 import com.example.aquamate.R
 import com.example.aquamate.ui.components.AddWaterVolumeItem
 import com.example.aquamate.ui.model.AddWaterViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +33,7 @@ fun AddWaterScreen(
 
     if (showBottomSheet) {
         AddWaterVolumeItem(
-            onAdd = { value -> vm.addToList(value) },
+            onAdd = { item -> vm.addVolume(item.value) },
             onDismiss = {
                 showBottomSheet = false
             },
